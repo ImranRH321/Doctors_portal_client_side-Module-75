@@ -9,8 +9,8 @@ const Navbar = () => {
     const [user] = useAuthState(auth);
 
     const logout = () => {
-        const token = localStorage.getItem('token')
-        console.log('token navbar ', token);
+        // const token = localStorage.getItem('token')
+        // console.log('token navbar ', token);
         signOut(auth);
         localStorage.removeItem('token')
     };
