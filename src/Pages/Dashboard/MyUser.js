@@ -4,42 +4,37 @@ import Loading from "../Shared/Loading";
 import UserRow from "./UserRow";
 
 const MyUser = () => {
-  const {
-    data: users,
-    isLoading,
-    error,
-  } = useQuery("users", () =>
-    fetch("http://localhost:5000/user").then(res => res.json())
+  const { data: users, isLoading } = useQuery("users", () =>
+    fetch("http://localhost:5000/user", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then(res => res.json())
   );
 
   if (isLoading) return <Loading></Loading>;
-  if (error)
-    return <p className="text-red-500 text-3xl">{`user not found !`}</p>;
 
   return (
     <div>
       <h2 className="text-4xl font-bold">All User {users.length}</h2>
 
       <div class="overflow-x-auto">
-  <table class="table w-full">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-      </tr>
-    </thead>
-    <tbody>
-    {
-        users.map(user => <UserRow key={user._id} 
-         user={user}
-        ></UserRow>)
-    }
-     
-    </tbody>
-  </table>
-</div>
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Job</th>
+              <th>Favorite Color</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <UserRow key={user._id} user={user}></UserRow>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
