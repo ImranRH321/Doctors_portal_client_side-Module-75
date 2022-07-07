@@ -18,6 +18,9 @@ const useToken = user => {
         .then(res => res.json())
         .then(data => {
           console.log('inside user', data);
+          const token = data.token;
+          localStorage.setItem('token', token)
+          setToken(token)
         });
     }
   }, [user]);
