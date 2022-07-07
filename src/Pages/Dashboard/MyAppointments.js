@@ -15,8 +15,16 @@ const MyAppointments = () => {
                 authorization: `Bearer ${localStorage.getItem('token')}`
               }
             })
-                .then(res => res.json())
-                .then(data => setAppointments(data));
+                .then(res => {
+                    console.log('res', res);
+                    if(res.status === 401 || 403){
+
+                    }
+                  return  res.json()
+                })
+                .then(data => {
+                    setAppointments(data)
+                });
         }
     }, [user])
 
