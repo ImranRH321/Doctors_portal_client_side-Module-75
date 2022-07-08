@@ -19,7 +19,7 @@ const SignUp = () => {
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
   
     const [token] = useToken(user || gUser)
-     
+     console.log('token', token);
     const navigate = useNavigate();
 
     let signInError;
